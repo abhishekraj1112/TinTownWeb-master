@@ -1,0 +1,335 @@
+<div class="page-layout simple fullwidth inner-scroll" fxLayout="column" id="creategateentry">
+    <div class="content p-20" pristinePerfectScrollbar>
+        <div class="mb-24" fxLayout="column" fxLayoutAlign="start">
+            <div class="mat-card mat-elevation-z1" fxFlex="1 0 auto" fxLayout="column" fxLayoutAlign="start">
+                <div class="h3 mb-8 p-16"><b>Create GateEntry ( </b> <b
+                    style="color: red"> {{sessionManageMent.getLocationName}}</b><b>
+                    ) {{currentdate | date: 'dd/MM/yyyy hh:mm a'}} </b></div>
+                <div class="p-16">
+                    <form [formGroup]="registerForm" name="registerForm" novalidate>
+                        <div fxLayout="column" fxLayoutGap="10px">
+                            <div fxFlex="1 0 auto" fxFlex.sm fxLayout="row" fxLayout.lt-sm="column">
+                                <div fxFlex="25" fxLayout="row" fxLayoutAlign.lt-sm="center">
+                                    <div fxLayout="column" style="width: 80%;">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Vehicle No</mat-label>
+                                            <input autocomplete="off" formControlName="VehicleNo"
+                                                   matInput>
+                                            <mat-icon class="secondary-text" matSuffix>airport_shuttle</mat-icon>
+                                            <mat-error>
+                                                Vehicle No is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div fxFlex="25" fxLayout="row" fxLayoutAlign.lt-sm="center">
+                                    <div fxLayout="column" style="width: 80%;">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Driver Name</mat-label>
+                                            <input autocomplete="off" formControlName="DriverName"
+                                                   matInput>
+                                            <mat-icon class="secondary-text" matSuffix>face</mat-icon>
+                                            <mat-error>
+                                                Driver Name is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div fxFlex="25" fxLayout="row" fxLayoutAlign.lt-sm="center">
+                                    <div fxLayout="column" style="width: 80%;">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Driver Number</mat-label>
+                                            <input autocomplete="off" formControlName="DriverNumber"
+                                                   matInput>
+                                            <mat-icon class="secondary-text" matSuffix>dialpad</mat-icon>
+                                            <mat-error>
+                                                Driver Number is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div fxFlex="25" fxLayout="row" fxLayoutAlign.lt-sm="center">
+                                    <div fxLayout="column" style="width: 80%;">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Transpoter</mat-label>
+                                            <input autocomplete="off" formControlName="Transpoter"
+                                                   matInput>
+                                            <mat-icon class="secondary-text" matSuffix>commute</mat-icon>
+                                            <mat-error>
+                                                Transpoter is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="column" fxLayoutGap="10px">
+                            <div fxFlex="1 0 auto" fxFlex.sm fxLayout="row" fxLayout.lt-sm="column">
+                                <div fxFlex="25" fxLayout="row" fxLayoutAlign.lt-sm="center">
+                                    <div fxLayout="column" style="width: 80%;">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Lorry Receipt (LR)</mat-label>
+                                            <input autocomplete="off" formControlName="LRNo"
+                                                   matInput>
+                                            <mat-icon class="secondary-text" matSuffix>receipt</mat-icon>
+                                            <mat-error>
+                                                Lorry Receipt is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div fxFlex="25" fxLayout="row" fxLayoutAlign.lt-sm="center">
+                                    <div fxLayout="column" style="width: 80%;">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>LR Date</mat-label>
+                                            <input (focusin)="ldate.open()" [matDatepicker]="ldate"
+                                                   formControlName="LRDate"
+                                                   matInput
+                                                   placeholder="Choose LR date"
+                                            >
+                                            <mat-datepicker #ldate="matDatepicker"
+                                            ></mat-datepicker>
+                                            <mat-icon class="secondary-text" matSuffix>date_range</mat-icon>
+                                            <mat-error>
+                                                Lorry Receipt Date is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div fxFlex="25" fxLayout="row" fxLayoutAlign.lt-sm="center">
+                                    <div fxLayout="column" style="width: 80%;">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Freight Type</mat-label>
+                                            <mat-select formControlName="Freight">
+                                                <mat-option>None</mat-option>
+                                                <mat-option (select)="this.registerForm.setValue({Freight:values})"
+                                                            *ngFor="let values of freightType"
+                                                            [value]="values">{{values}} </mat-option>
+                                            </mat-select>
+                                            <mat-error>
+                                                Freight Type is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div *ngIf="this.registerForm.get('Freight').value== freightType[1]" fxFlex="25"
+                                     fxLayout="row" fxLayoutAlign.lt-sm="center">
+                                    <div fxLayout="column" style="width: 80%;">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Freight Amount</mat-label>
+                                            <input autocomplete="off" formControlName="FreightAmount" matInput
+                                                   pattern="[0-9]*"
+                                                   type="text">
+                                            <mat-error>
+                                                Freight Amount is Wrong
+                                            </mat-error>
+                                            <mat-icon matSuffix>money</mat-icon>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="column" fxLayoutGap="10px">
+                            <div fxFlex="1 0 auto" fxFlex.sm fxLayout="row" fxLayout.lt-sm="column">
+                                <div fxFlex="25" fxLayout="row" fxLayoutAlign.lt-sm="center">
+                                    <div fxLayout="column" style="width: 80%;">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Document Type</mat-label>
+                                            <mat-select (selectionChange)="this.registerForm.patchValue({ VendorNoorFromLocation:'',DocumentNo:'' });this.orderlist=[]"
+                                                        formControlName="DocumentType">
+                                                <mat-option>None</mat-option>
+                                                <mat-option *ngFor="let values of documentType"
+                                                            [value]="values">{{values}} </mat-option>
+                                            </mat-select>
+                                            <mat-error>
+                                                Document Type is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div *ngIf="registerForm.get('DocumentType').value== documentType[0]" fxFlex="100" fxFlex.sm
+                                     fxLayout.lt-sm="column">
+                                    <div fxFlex="33" fxLayout="row" fxLayoutAlign.lt-sm="center">
+                                        <div fxLayout="column" style="width: 80%;">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Vendor</mat-label>
+
+                                                <mat-select (selectionChange)="get_purchase_no_by_vendor()" autocomplete="off"
+                                                            formControlName="VendorNoorFromLocation">
+                                                    <input (ngModelChange)="get_vendor()"
+                                                           [(ngModel)]="searchByvendorname"
+                                                           [ngModelOptions]="{standalone:true}"
+                                                           autocomplete="off" class="myInput"
+                                                           focused="'true'" matInput placeholder="Search" type="text">
+                                                    <mat-option
+                                                        *ngFor="let shippingOrder of vendorlist"
+                                                        [value]="shippingOrder.vendor_no">{{shippingOrder.vendor_name}}</mat-option>
+                                                </mat-select>
+                                                <mat-error>
+                                                    Vendor is required
+                                                </mat-error>
+                                                <mat-icon class="secondary-text" matSuffix>supervised_user_circle
+                                                </mat-icon>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="33" fxLayout="row" fxLayoutAlign.lt-sm="center">
+                                        <div fxLayout="column" style="width: 80%;">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Purchase Order</mat-label>
+                                                <mat-select autocomplete="off" formControlName="DocumentNo">
+                                                    <input [(ngModel)]="searchBydocumentNo"
+                                                           [ngModelOptions]="{standalone:true}"
+                                                           autocomplete="off" class="myInput"
+                                                           focused="'true'" matInput placeholder="Search" type="text">
+                                                    <mat-option
+                                                        *ngFor="let shippingOrder of orderlist|searchShippingOrderData: searchBydocumentNo"
+                                                        [value]="shippingOrder.document_no">{{shippingOrder.document_no}}</mat-option>
+                                                </mat-select>
+                                                <mat-error>
+                                                    Purchase Order is required
+                                                </mat-error>
+
+
+                                                <mat-icon class="secondary-text" matSuffix>receipt</mat-icon>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="this.registerForm.get('DocumentType').value== documentType[1]" fxFlex="100" fxFlex.sm
+                                     fxLayout.lt-sm="column">
+                                    <div fxFlex="33" fxLayout="row" fxLayoutAlign.lt-sm="center">
+                                        <div fxLayout="column" style="width: 80%;">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>From Location</mat-label>
+
+                                                <mat-select autocomplete="off" formControlName="VendorNoorFromLocation">
+                                                    <input [(ngModel)]="searchBylocation"
+                                                           [ngModelOptions]="{standalone:true}"
+                                                           autocomplete="off" class="myInput"
+                                                           focused="'true'" matInput placeholder="Search" type="text">
+                                                    <mat-option
+                                                        *ngFor="let shippingOrder of locationlist|searchlocation: searchBylocation"
+                                                        [value]="shippingOrder.location_id">{{shippingOrder.location_name}}</mat-option>
+                                                </mat-select>
+                                                <mat-error>
+                                                    From Location is required
+                                                </mat-error>
+                                                <mat-icon class="secondary-text" matSuffix>place</mat-icon>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="33" fxLayout="row" fxLayoutAlign.lt-sm="center">
+                                        <div fxLayout="column" style="width: 80%;">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Inbound Transfer Order</mat-label>
+
+                                                <mat-select autocomplete="off" formControlName="DocumentNo">
+                                                    <input [(ngModel)]="searchBydocumentNo"
+                                                           [ngModelOptions]="{standalone:true}"
+                                                           autocomplete="off" class="myInput"
+                                                           focused="'true'" matInput placeholder="Search" type="text">
+                                                    <mat-option
+                                                        *ngFor="let shippingOrder of orderlist|searchShippingOrderData: searchBydocumentNo"
+                                                        [value]="shippingOrder.document_no">{{shippingOrder.document_no}}</mat-option>
+                                                </mat-select>
+                                                <mat-error>
+                                                    Inbound Transfer Order is required
+                                                </mat-error>
+
+                                                <mat-icon class="secondary-text" matSuffix>receipt</mat-icon>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="this.registerForm.get('DocumentType').value== documentType[2]" fxFlex="25"
+                                     fxFlex.sm fxLayout="row"
+                                     fxLayout.lt-sm="column" fxLayoutAlign.lt-sm="center">
+                                    <div fxLayout="column" fxLayoutAlign.lt-sm="center">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Invoice No</mat-label>
+                                            <input autocomplete="off" formControlName="DocumentNo"
+                                                   matInput>
+                                            <mat-icon class="secondary-text" matSuffix>receipt</mat-icon>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="column" fxLayoutGap="10px">
+                            <div fxFlex="1 0 auto" fxFlex.sm fxLayout="row" fxLayout.lt-sm="column">
+                                <div fxFlex="25" fxLayout="row" fxLayoutAlign.lt-sm="center">
+                                    <div fxLayout="column" style="width: 80%;">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Challan No</mat-label>
+                                            <input autocomplete="off" formControlName="ChallanNo"
+                                                   matInput>
+                                            <mat-icon class="secondary-text" matSuffix>receipt</mat-icon>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div fxFlex="25" fxLayout="row" fxLayoutAlign.lt-sm="center">
+                                    <div fxLayout="column" style="width: 80%;">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Challan Date</mat-label>
+                                            <input (focusin)="Chadate.open()" [matDatepicker]="Chadate"
+                                                   formControlName="ChallanDate"
+                                                   matInput
+                                                   placeholder="Choose Challan date">
+                                            <mat-icon class="secondary-text" matSuffix>date_range</mat-icon>
+                                            <mat-datepicker #Chadate="matDatepicker"
+                                            ></mat-datepicker>
+                                            <mat-error>
+                                                Challan Date is required in correct format
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div fxFlex="25" fxLayout="row" fxLayoutAlign.lt-sm="center">
+                                    <div fxLayout="column" style="width: 80%;">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>No of Boxes</mat-label>
+                                            <input autocomplete="off" formControlName="NoofBox" matInput
+                                                   pattern="[0-9]*"
+                                                   type="text">
+                                            <mat-error>
+                                                No of Boxes is required in correct format
+                                            </mat-error>
+                                            <mat-icon class="secondary-text" matSuffix>widgets</mat-icon>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="column" fxLayoutGap="10px">
+                            <div fxFlex="1 0 auto" fxFlex.sm fxLayout="row" fxLayout.lt-sm="column">
+                                <div fxFlex="50" fxLayout="row" fxLayoutAlign.lt-sm="center">
+                                    <div fxLayout="column" style="width: 80%;">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Item Description</mat-label>
+                                            <input autocomplete="off" formControlName="ItemDescription"
+                                                   matInput>
+                                            <mat-icon class="secondary-text" matSuffix>description</mat-icon>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="pl-8" fxFlex fxFlex.sm fxLayout="column" fxLayout.lt-sm="column"
+                     fxLayoutAlign="start"
+                     style="margin-bottom: 50px; margin-left: 1%">
+                    <div fxFlex fxLayoutAlign.lt-sm="center">
+                        <button (click)="CreategateEntry()" [disabled]="registerForm.invalid" aria-label="Submit"
+                                color="accent"
+                                mat-raised-button
+                        >
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

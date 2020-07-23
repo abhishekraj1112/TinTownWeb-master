@@ -1,0 +1,9 @@
+[disabled] { /* Text and background colour, medium red on light yellow */
+    color: black !important;
+}
+
+.mat-form-field-infix::after {
+    color: black !important;
+}
+
+//mat-input-element mat-form-field-autofill-control ng-tns-c152-15 cdk-text-field-autofill-monitored ng-untouched ng-pristine
